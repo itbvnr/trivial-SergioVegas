@@ -3,7 +3,6 @@ package cat.itb.m78.exercices.Trivial_App
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.ColumnScope.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cat.itb.m78.exercices.theme.AppTheme
-import kotlinx.coroutines.launch
 import m78exercices.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.painterResource
 import m78exercices.composeapp.generated.resources.Dragonite
@@ -57,20 +55,20 @@ internal fun MenuScreen() = AppTheme {
     }
 }
 
-@Composable
-internal fun GameScreen() = AppTheme {
-    Box(Modifier.fillMaxSize().background(Color.Black)) {
-
-        Column(
-            Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        )
-        {
-           Text(
-               text =
-           )
-        }
-    }
-}
+//@Composable
+//internal fun GameScreen() = AppTheme {
+//    Box(Modifier.fillMaxSize().background(Color.Black)) {
+//
+//        Column(
+//            Modifier.fillMaxSize(),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        )
+//        {
+//           Text(
+//               text =
+//           )
+//        }
+//    }
+//}
 
