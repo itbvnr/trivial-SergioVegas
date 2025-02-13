@@ -7,9 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import cat.itb.m78.exercices.Trivial.Screens.GameScreen
-import cat.itb.m78.exercices.Trivial.Screens.
-import cat.itb.m78.exercices.Trivial.Screens
-import cat.itb.m78.exercices.Trivial.Screens.
+import cat.itb.m78.exercices.Trivial.Screens.MenuScreen
+//import cat.itb.m78.exercices.Trivial.Screens
+//import cat.itb.m78.exercices.Trivial.Screens.
 import kotlinx.serialization.Serializable
 
 object Destination{
@@ -30,6 +30,7 @@ fun Trivial(){
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Destination.MenuScreen){
+
         composable<Destination.MenuScreen> {
             MenuScreen(
                 navigateToGameScreen = { navController.navigate(Destination.GameScreen) },

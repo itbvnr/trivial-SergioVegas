@@ -1,4 +1,4 @@
-package cat.itb.m78.exercices.Trivial_App
+package cat.itb.m78.exercices.Trivial.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,38 +37,19 @@ internal fun MenuScreen() = AppTheme {
                 modifier = Modifier.width(200.dp).height(200.dp),
                 contentDescription = null
             )
-
-            //boto 1
-            Button(onClick = {
-
-            }){
+            Button(
+                onClick = navigateToGameScreen,
+                modifier = Modifier.height(40.dp).width(120.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5E5E5E))){
                 Text("New Game")
             }
 
-            //boton 2
-            Button(onClick = {
-
-            })
+            Button(
+                onClick = navigateToGameScreen,
+                modifier = Modifier.height(40.dp).width(120.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5E5E5E)))
             { Text("Settings")
             }
         }
     }
 }
-
-//@Composable
-//internal fun GameScreen() = AppTheme {
-//    Box(Modifier.fillMaxSize().background(Color.Black)) {
-//
-//        Column(
-//            Modifier.fillMaxSize(),
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        )
-//        {
-//           Text(
-//               text =
-//           )
-//        }
-//    }
-//}
-

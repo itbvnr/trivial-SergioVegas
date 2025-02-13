@@ -16,9 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import cat.itb.m78.exercices.trivial.GameViewModel
-import cat.itb.m78.exercices.trivial.Question
-import cat.itb.m78.exercices.trivial.brush
+import cat.itb.m78.exercices.Trivial.GameViewModel
+import cat.itb.m78.exercices.Trivial.Question
+import cat.itb.m78.exercices.Trivial.brush
 
 @Composable
 fun GameScreen(navigateToResultScreen: () -> Unit){
