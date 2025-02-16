@@ -64,6 +64,7 @@ fun GameScreenView(viewModel: GameViewModel, currentQuestion : Question?, naviga
 
             Text("Ronda ${viewModel.currentRound} de ${viewModel.totalRounds}")
             Text("Punts: ${viewModel.score}")
+
         }
 
     }

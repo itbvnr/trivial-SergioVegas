@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.itb.m78.exercices.Trivial.SettingsViewModel
 import cat.itb.m78.exercices.Trivial.TrivialDifficulty
-import cat.itb.m78.exercices.Trivial.TrivialTheme
 import cat.itb.m78.exercices.Trivial.brush
 import kotlin.math.roundToInt
 
@@ -41,9 +40,6 @@ fun SettingsScreen(navigateToMenuScreen: () -> Unit) {
 @Composable
 fun SettingsScreenView(navigateToMenuScreen: () -> Unit, viewModel: SettingsViewModel){
     var expandedDifficulty by remember { mutableStateOf(false) }
-    var expandedTheme by remember { mutableStateOf(false) }
-
-    val themeOptions = TrivialTheme.entries
     val difficultyOptions = TrivialDifficulty.entries
     val roundsOptions = listOf(5, 10, 15)
 
@@ -52,33 +48,7 @@ fun SettingsScreenView(navigateToMenuScreen: () -> Unit, viewModel: SettingsView
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize().background(brush)
     ) {
-        Column {
-            TextField(
-                readOnly = true,
-                value = viewModel.selectedTheme.name,
-                onValueChange = {},
-                label = { Text("Theme") },
-                trailingIcon = {
-                    IconButton(onClick = { expandedTheme = !expandedTheme }) {
-                        Icon(Icons.Filled.ArrowDropDown, "dropdown arrow")
-                    }
-                }
-            )
-            DropdownMenu(
-                expanded = expandedTheme,
-                onDismissRequest = { expandedTheme = false }
-            ) {
-                themeOptions.forEach { theme ->
-                    DropdownMenuItem(
-                        text = { Text(text = theme.name) },
-                        onClick = {
-                            viewModel.updateTheme(theme)
-                            expandedTheme = false
-                        }
-                    )
-                }
-            }
-        }
+
         Column {
             TextField(
                 readOnly = true,
@@ -133,8 +103,8 @@ fun SettingsScreenView(navigateToMenuScreen: () -> Unit, viewModel: SettingsView
         Slider(
             value = viewModel.selectedTime,
             onValueChange = { viewModel.updateTime(it.roundToInt().toFloat()) },
-            steps = 5,
-            valueRange = 4f..10f
+            steps = 10,
+            valueRange = 5f..15f
         )
         Text(text = viewModel.selectedTime.toString())
 

@@ -6,11 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 enum class TrivialDifficulty{ Easy, Normal, Hard }
-enum class TrivialTheme{ }
 
 data class TrivialSettings(
-    val difficulty: TrivialDifficulty = TrivialDifficulty.Normal,
-    val questionsPerGame: Int = 10,
+    val difficulty: TrivialDifficulty = TrivialDifficulty.Easy,
+    val questionsPerGame: Int = 5,
     val timePerGame: Float = 5f
 )
 

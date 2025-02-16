@@ -27,14 +27,15 @@ class GameViewModel() : ViewModel(){
     var gameFinished by mutableStateOf(false)
     var currentRound by mutableStateOf(1)
 
+
     fun randomQuestion(): Question {
-        var theme: String
+        var difficulty: String
         var question: Question
 
         do {
             question = questions.random()
-            theme = question.category
-        } while (theme != settingsData.theme.toString())
+            difficulty = question.category
+        } while (difficulty != settingsData.difficulty.toString())
 
         return question
     }
