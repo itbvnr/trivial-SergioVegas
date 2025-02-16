@@ -21,7 +21,7 @@ import cat.itb.m78.exercices.Trivial.Question
 import cat.itb.m78.exercices.Trivial.brush
 
 @Composable
-fun GameScreen(navigateToResultScreen: () -> Unit){
+fun GameScreen (navigateToResultScreen: () -> Unit){
     val viewModel: GameViewModel = viewModel { GameViewModel() }
     var currentQuestion by remember { mutableStateOf<Question?>(null) }
 

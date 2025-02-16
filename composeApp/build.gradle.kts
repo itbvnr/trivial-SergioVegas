@@ -80,6 +80,7 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
+        val commonMain by getting {resources.srcDirs("src/commonMain/resources")}
 
     }
 }

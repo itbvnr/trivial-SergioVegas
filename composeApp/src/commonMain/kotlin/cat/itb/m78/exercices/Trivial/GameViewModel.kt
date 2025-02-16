@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 data class Question(
     val text: String,
     val options: List<String>,
-    val correctAnswerIndex: Int
+    val correctAnswerIndex: Int,
+    val category: String
 )
 
 class GameViewModel() : ViewModel(){
@@ -26,20 +27,19 @@ class GameViewModel() : ViewModel(){
     var gameFinished by mutableStateOf(false)
     var currentRound by mutableStateOf(1)
 
-    private val questions = listOf(
-        Question(
-            text = "Com evoluciona Pikachu a Raichu?",
-            options = listOf("Pujar nivell", "Pedra Trueno", "No evoluciona", "Cap resposta és correcta"),
-            correctAnswerIndex = 0
-        ),
-
-    )
-
     fun randomQuestion(): Question {
-        return questions.random()
+        var theme: String
+        var question: Question
+
+        do {
+            question = questions.random()
+            theme = question.category
+        } while (theme != settingsData.theme.toString())
+
+        return question
     }
 
-    fun checkQuestion(userAnswer: Int, navigateToResultScreen: () -> Unit){
+        fun checkQuestion(userAnswer: Int, navigateToResultScreen: () -> Unit){
         if (!gameFinished) {
             if (userAnswer == currentQuestion?.correctAnswerIndex) {
                 roundText = "Resposta correcta!"
@@ -59,6 +59,13 @@ class GameViewModel() : ViewModel(){
                     currentRound++
                 }
             }
+        }
+    }
+
+    suspend fun loadProgress(updateProgress: (Float) -> Unit) {
+        for (i in 1..50) {
+            updateProgress(i.toFloat() / 100)
+            delay(100)
         }
     }
 }
