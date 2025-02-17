@@ -21,6 +21,7 @@ fun ResultScreen(navigateToMenuScreen: () -> Unit){
 
 }
 
+
 @Composable
 fun ResultScreenView(navigateToMenuScreen: () -> Unit, viewModel: GameViewModel){
     Column(
