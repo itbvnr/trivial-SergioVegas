@@ -43,7 +43,7 @@ fun MenuScreen(navigateToGameScreen: () -> Unit, navigateToSettingsScreen: () ->
         Image(
             painter = painterResource(Res.drawable.pokeball),
             contentDescription = null,
-            modifier = Modifier.size(200.dp).clip(CircleShape)
+            modifier = Modifier.size(150.dp).clip(CircleShape)
         )
         Spacer(modifier = Modifier.padding(10.dp))
         Button(
@@ -57,8 +57,7 @@ fun MenuScreen(navigateToGameScreen: () -> Unit, navigateToSettingsScreen: () ->
         Button(
             onClick = navigateToSettingsScreen,
             modifier = Modifier.height(40.dp).width(120.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF5E5E5E)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5E5E5E)
             )) { Text("Settings") }
     }
 }

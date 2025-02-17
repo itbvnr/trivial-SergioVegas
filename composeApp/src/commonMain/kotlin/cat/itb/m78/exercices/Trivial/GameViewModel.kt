@@ -27,6 +27,10 @@ class GameViewModel() : ViewModel(){
     var gameFinished by mutableStateOf(false)
     var currentRound by mutableStateOf(1)
 
+    init {
+        // Carga la primera pregunta al inicializar el ViewModel
+        currentQuestion = randomQuestion()
+    }
 
     fun randomQuestion(): Question {
         var difficulty: String
@@ -52,7 +56,7 @@ class GameViewModel() : ViewModel(){
             }
             mostrarResultat = true
             viewModelScope.launch {
-                delay(2000) // Reduced delay to 2 seconds for better UX
+                delay(1000)
                 mostrarResultat = false
                 if (currentRound >= totalRounds) {
                     gameFinished = true
@@ -62,13 +66,6 @@ class GameViewModel() : ViewModel(){
                     currentRound++
                 }
             }
-        }
-    }
-
-    suspend fun loadProgress(updateProgress: (Float) -> Unit) {
-        for (i in 1..50) {
-            updateProgress(i.toFloat() / 100)
-            delay(100)
         }
     }
 }

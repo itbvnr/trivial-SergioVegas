@@ -1,23 +1,10 @@
 package cat.itb.m78.exercices.Trivial.Screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.itb.m78.exercices.Trivial.SettingsViewModel
 import cat.itb.m78.exercices.Trivial.TrivialDifficulty
@@ -104,12 +93,20 @@ fun SettingsScreenView(navigateToMenuScreen: () -> Unit, viewModel: SettingsView
             value = viewModel.selectedTime,
             onValueChange = { viewModel.updateTime(it.roundToInt().toFloat()) },
             steps = 10,
-            valueRange = 5f..15f
+            valueRange = 5f..15f,
+            colors = SliderDefaults.colors(
+                thumbColor = Color.Red,
+                activeTrackColor = Color.Red,
+                inactiveTrackColor = Color.Gray,
+            ),
+            modifier = Modifier.height(40.dp).width(400.dp),
+
         )
         Text(text = viewModel.selectedTime.toString())
 
-        Button(onClick = navigateToMenuScreen) {
-            Text("Return to menu")
-        }
+        Button(onClick = navigateToMenuScreen,
+            modifier = Modifier.height(40.dp).width(150.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5E5E5E)))
+        { Text("Return to menu") }
     }
 }
