@@ -33,35 +33,41 @@ class GameViewModel() : ViewModel(){
         var question: Question
 
         do {
-            question = questions.random()
+            question = questionsEasy.random()
             difficulty = question.category
         } while (difficulty != settingsData.difficulty.toString())
 
         return question
     }
 
-        fun checkQuestion(userAnswer: Int, navigateToResultScreen: () -> Unit){
+    fun checkQuestion(userAnswer: Int, navigateToResultScreen: () -> Unit) {
         if (!gameFinished) {
+
             if (userAnswer == currentQuestion?.correctAnswerIndex) {
-                roundText = "Resposta correcta!"
+                roundText = "Respuesta correcta!"
                 score++
             } else {
-                roundText = "Resposta incorrecta..."
+                roundText = "Respuesta incorrecta..."
             }
+
             mostrarResultat = true
+
             viewModelScope.launch {
-                delay(5000)
-                mostrarResultat = false
-                if (currentRound >= totalRounds) {
-                    gameFinished = true
-                    navigateToResultScreen()
-                } else {
+
+                delay(1000)
+
+                if (currentRound < totalRounds) {
                     currentQuestion = randomQuestion()
                     currentRound++
+                    mostrarResultat = false
+                } else {
+                    gameFinished = true
+                    navigateToResultScreen()
                 }
             }
         }
     }
+
 
     suspend fun loadProgress(updateProgress: (Float) -> Unit) {
         for (i in 1..50) {

@@ -21,25 +21,27 @@ import cat.itb.m78.exercices.Trivial.Question
 import cat.itb.m78.exercices.Trivial.brush
 
 @Composable
-fun GameScreen (navigateToResultScreen: () -> Unit){
-    val viewModel: GameViewModel = viewModel { GameViewModel() }
-    var currentQuestion by remember { mutableStateOf<Question?>(null) }
+fun GameScreen(navigateToResultScreen: () -> Unit) {
+    val viewModel: GameViewModel = viewModel()  // Obtenemos el ViewModel
+    val currentQuestion by remember { mutableStateOf(viewModel.currentQuestion) }  // Observamos el estado de currentQuestion desde el ViewModel
 
-    LaunchedEffect(Unit){
-        currentQuestion = viewModel.randomQuestion()
-    }
-
-    GameScreenView(viewModel, currentQuestion, navigateToResultScreen)
-}
-
-@Composable
-fun GameScreenView(viewModel: GameViewModel, currentQuestion : Question?, navigateToResultScreen: () -> Unit){
-    LaunchedEffect(Unit) {
+    // Llamada a la UI cuando el juego ha terminado
+    LaunchedEffect(viewModel.gameFinished) {
         if (viewModel.gameFinished) {
             navigateToResultScreen()
         }
     }
 
+    // Actualizamos la UI con la pregunta actual
+    GameScreenView(viewModel, currentQuestion, navigateToResultScreen)
+}
+
+@Composable
+fun GameScreenView(
+    viewModel: GameViewModel,
+    currentQuestion: Question?,
+    navigateToResultScreen: () -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -47,25 +49,29 @@ fun GameScreenView(viewModel: GameViewModel, currentQuestion : Question?, naviga
     ) {
         if (viewModel.mostrarResultat) Text(viewModel.roundText)
 
+        // Verifica si hay una pregunta actual
         if (currentQuestion != null) {
             Text(currentQuestion.text)
+
             Row {
-                Button(onClick = { viewModel.checkQuestion(0, navigateToResultScreen) } ){
-                    Text(currentQuestion.options[0])}
-                Button(onClick = { viewModel.checkQuestion(1, navigateToResultScreen) } ){
-                    Text(currentQuestion.options[1])}
+                Button(onClick = { viewModel.checkQuestion(0, navigateToResultScreen) }) {
+                    Text(currentQuestion.options[0])
+                }
+                Button(onClick = { viewModel.checkQuestion(1, navigateToResultScreen) }) {
+                    Text(currentQuestion.options[1])
+                }
             }
             Row {
-                Button(onClick = { viewModel.checkQuestion(2, navigateToResultScreen) } ){
-                    Text(currentQuestion.options[2])}
-                Button(onClick = { viewModel.checkQuestion(3, navigateToResultScreen) } ){
-                    Text(currentQuestion.options[3])}
+                Button(onClick = { viewModel.checkQuestion(2, navigateToResultScreen) }) {
+                    Text(currentQuestion.options[2])
+                }
+                Button(onClick = { viewModel.checkQuestion(3, navigateToResultScreen) }) {
+                    Text(currentQuestion.options[3])
+                }
             }
 
             Text("Ronda ${viewModel.currentRound} de ${viewModel.totalRounds}")
             Text("Punts: ${viewModel.score}")
-
         }
-
     }
 }

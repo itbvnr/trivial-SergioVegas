@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.itb.m78.exercices.Trivial.brush
 import m78exercices.composeapp.generated.resources.Res
-import m78exercices.composeapp.generated.resources.pokemon_logo
+import m78exercices.composeapp.generated.resources.pokeball
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
@@ -41,7 +41,7 @@ fun MenuScreen(navigateToGameScreen: () -> Unit, navigateToSettingsScreen: () ->
             fontSize = 60.sp,
             )
         Image(
-            painter = painterResource(Res.drawable.pokemon_logo),
+            painter = painterResource(Res.drawable.pokeball),
             contentDescription = null,
             modifier = Modifier.size(200.dp).clip(CircleShape)
         )
