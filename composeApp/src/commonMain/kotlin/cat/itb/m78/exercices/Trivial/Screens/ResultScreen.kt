@@ -17,11 +17,10 @@ import cat.itb.m78.exercices.Trivial.GameViewModel
 import cat.itb.m78.exercices.Trivial.brush
 
 @Composable
-fun ResultScreen(viewModel: GameViewModel,navigateToMenuScreen: () -> Unit){
-    println("ResultScreen: ViewModel hashCode: ${viewModel.hashCode()}")
+fun ResultScreen(navigateToMenuScreen: () -> Unit, viewModel: GameViewModel){
     ResultScreenView(navigateToMenuScreen, viewModel)
-
 }
+
 
 
 @Composable
@@ -33,10 +32,10 @@ fun ResultScreenView(navigateToMenuScreen: () -> Unit, viewModel: GameViewModel)
     ) {
         Text(text ="Puntuació total:", style = TextStyle(fontSize = 24.sp))
         Spacer(modifier = Modifier.padding(2.dp))
-        Text(text ="${viewModel.score}",  style = TextStyle(fontSize = 24.sp))
+        Text(text =("${viewModel.scoreViewModel.currentScore}"),  style = TextStyle(fontSize = 24.sp))
         Spacer(modifier = Modifier.padding(5.dp))
         Button(onClick = navigateToMenuScreen,
             modifier = Modifier.height(40.dp).width(200.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336))){ Text("Tornar al menú inicial!") }
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336))){ Text("Tornar al menú inicial") }
     }
 }

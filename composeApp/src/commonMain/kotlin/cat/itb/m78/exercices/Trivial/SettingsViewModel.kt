@@ -40,7 +40,6 @@ class SettingsViewModel: ViewModel(){
         selectedTime = time
         saveSettings()
     }
-
     private fun saveSettings() {
         TrivialSettingsManager.update(
             TrivialSettings(

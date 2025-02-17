@@ -15,23 +15,25 @@ data class Question(
     val category: String
 )
 
-class GameViewModel() : ViewModel(){
-    private val settingsData = TrivialSettingsManager.get()
-
-    val totalRounds: Int = settingsData.questionsPerGame
+class GameViewModel(private val settingsViewModel: SettingsViewModel) : ViewModel(){
+    val scoreViewModel = ScoreViewModel()
 
     var roundText by mutableStateOf("")
-    var score by mutableStateOf(0)
-    var mostrarResultat by mutableStateOf(false)
+    var showResult by mutableStateOf(false)
     var currentQuestion by mutableStateOf<Question?>(null)
     var gameFinished by mutableStateOf(false)
     var currentRound by mutableStateOf(1)
 
     init {
-        // Carga la primera pregunta al inicializar el ViewModel
-        currentQuestion = randomQuestion()
+        resetGame()
     }
-
+    fun resetGame() {
+        scoreViewModel.resetScore()
+        currentRound = 1
+        gameFinished = false
+        currentQuestion = randomQuestion()
+        roundText = ""
+    }
     fun randomQuestion(): Question {
         var difficulty: String
         var question: Question
@@ -39,26 +41,30 @@ class GameViewModel() : ViewModel(){
         do {
             question = questions.random()
             difficulty = question.category
-        } while (difficulty != settingsData.difficulty.toString())
+        } while (difficulty != settingsViewModel.selectedDifficulty.toString())
 
         return question
     }
 
     fun checkQuestion(userAnswer: Int, navigateToResultScreen: () -> Unit){
         if (!gameFinished) {
-            if (userAnswer == -1) {
-                roundText = "Temps esgotat!"
-            } else if (userAnswer == currentQuestion?.correctAnswerIndex) {
-                roundText = "Resposta correcta!"
-                score++
-            } else {
-                roundText = "Resposta incorrecta..."
+            when (userAnswer) {
+                -1 -> {
+                    roundText = "Temps esgotat!"
+                }
+                currentQuestion?.correctAnswerIndex -> {
+                    roundText = "Resposta correcta!"
+                    scoreViewModel.incrementScore()
+                }
+                else -> {
+                    roundText = "Resposta incorrecta..."
+                }
             }
-            mostrarResultat = true
+            showResult = true
             viewModelScope.launch {
-                delay(1000)
-                mostrarResultat = false
-                if (currentRound >= totalRounds) {
+                delay(5000)
+                showResult = false
+                if (currentRound >= settingsViewModel.selectedRounds) {
                     gameFinished = true
                     navigateToResultScreen()
                 } else {

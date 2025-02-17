@@ -20,17 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cat.itb.m78.exercices.Trivial.GameViewModel
 import cat.itb.m78.exercices.Trivial.brush
 import m78exercices.composeapp.generated.resources.Res
 import m78exercices.composeapp.generated.resources.pokeball
-import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun MenuScreen(navigateToGameScreen: () -> Unit, navigateToSettingsScreen: () -> Unit){
+fun MenuScreen(navigateToGameScreen: () -> Unit, navigateToSettingsScreen: () -> Unit,  gameViewModel: GameViewModel){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -47,7 +46,10 @@ fun MenuScreen(navigateToGameScreen: () -> Unit, navigateToSettingsScreen: () ->
         )
         Spacer(modifier = Modifier.padding(10.dp))
         Button(
-            onClick = navigateToGameScreen,
+            onClick = {
+                navigateToGameScreen()
+                gameViewModel.resetGame()
+            },
             modifier = Modifier.height(40.dp).width(150.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5E5E5E)))
         { Text("New Game") }

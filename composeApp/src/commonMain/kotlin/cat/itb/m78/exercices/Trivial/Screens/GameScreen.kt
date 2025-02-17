@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.itb.m78.exercices.Trivial.GameViewModel
 import cat.itb.m78.exercices.Trivial.SettingsViewModel
 import cat.itb.m78.exercices.Trivial.brush
@@ -27,8 +26,7 @@ import kotlin.time.Duration.Companion.seconds
 
 
 @Composable
-fun GameScreen(viewModel: GameViewModel,navigateToResultScreen: () -> Unit){
-    val settingsData: SettingsViewModel = viewModel { SettingsViewModel() }
+fun GameScreen(navigateToResultScreen: () -> Unit, viewModel: GameViewModel, settingsData: SettingsViewModel){
     GameScreenView(viewModel, settingsData, navigateToResultScreen)
 }
 
@@ -50,7 +48,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
             timeLeft--
             if (timeLeft == 0f){
                 timerRunning = false
-                viewModel.checkQuestion(-1, navigateToResultScreen)
+                viewModel.checkQuestion(-1) { navigateToResultScreen() }
             }
         }
     }
@@ -66,8 +64,9 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize().background(brush)
     ) {
-        if (viewModel.mostrarResultat) Text( text =viewModel.roundText,  style = TextStyle(fontSize = 24.sp))
+        if (viewModel.showResult) Text( text =viewModel.roundText,  style = TextStyle(fontSize = 24.sp))
         Spacer(modifier = Modifier.padding(2.dp))
+
         if (viewModel.currentQuestion != null) {
             Text( text =viewModel.currentQuestion!!.text,  style = TextStyle(fontSize = 24.sp))
             Spacer(modifier = Modifier.padding(3.dp))
@@ -76,8 +75,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
                     if (!questionAnswered) {
                         timerRunning = false
                         questionAnswered = true
-                        viewModel.checkQuestion(0, navigateToResultScreen)
-                    }
+                        viewModel.checkQuestion(0) { navigateToResultScreen() }}
                 }, modifier = Modifier.height(40.dp).width(250.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336)))
                 { Text(viewModel.currentQuestion!!.options[0]) }
@@ -88,8 +86,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
                     if (!questionAnswered) {
                         timerRunning = false
                         questionAnswered = true
-                        viewModel.checkQuestion(1, navigateToResultScreen)
-                    }
+                        viewModel.checkQuestion(0) { navigateToResultScreen() }}
                 },
                     modifier = Modifier.height(40.dp).width(250.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336)))
@@ -101,8 +98,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
                     if (!questionAnswered) {
                         timerRunning = false
                         questionAnswered = true
-                        viewModel.checkQuestion(2, navigateToResultScreen)
-                    }
+                        viewModel.checkQuestion(0) { navigateToResultScreen() }}
                 },
                     modifier = Modifier.height(40.dp).width(250.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336)))
@@ -114,8 +110,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
                     if (!questionAnswered) {
                         timerRunning = false
                         questionAnswered = true
-                        viewModel.checkQuestion(3, navigateToResultScreen)
-                    }
+                        viewModel.checkQuestion(0) { navigateToResultScreen() }}
                 },
                     modifier = Modifier.height(40.dp).width(250.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336)))
@@ -124,7 +119,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
             Spacer(modifier = Modifier.padding(6.dp))
 
             LinearProgressIndicator(
-                progress = { if (settingsData.selectedTime > 0) (settingsData.selectedTime - timeLeft).toFloat() / settingsData.selectedTime.toFloat() else 0f },
+                progress = { if (settingsData.selectedTime > 0) (settingsData.selectedTime - timeLeft)/ settingsData.selectedTime else 0f },
                 drawStopIndicator = {},
                 gapSize = 0.dp,
                 modifier = Modifier.height(20.dp),
@@ -133,8 +128,8 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
             )
 
             Text("Temps restant: $timeLeft")
-            Text("Ronda ${viewModel.currentRound} de ${viewModel.totalRounds}")
-            Text("Punts: ${viewModel.score}")
+            Text("Ronda ${viewModel.currentRound} de ${settingsData.selectedRounds}")
+            Text("Punts: ${viewModel.scoreViewModel.currentScore}")
         }
 
     }

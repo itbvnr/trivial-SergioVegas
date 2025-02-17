@@ -14,20 +14,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.itb.m78.exercices.Trivial.SettingsViewModel
 import cat.itb.m78.exercices.Trivial.TrivialDifficulty
 import cat.itb.m78.exercices.Trivial.brush
 import kotlin.math.roundToInt
 
 @Composable
-fun SettingsScreen(navigateToMenuScreen: () -> Unit) {
-    val settingsViewModel: SettingsViewModel = viewModel { SettingsViewModel() }
+fun SettingsScreen(navigateToMenuScreen: () -> Unit, settingsViewModel: SettingsViewModel) {
     SettingsScreenView(navigateToMenuScreen, settingsViewModel)
 }
 
 @Composable
-fun SettingsScreenView(navigateToMenuScreen: () -> Unit, viewModel: SettingsViewModel){
+fun  SettingsScreenView(navigateToMenuScreen: () -> Unit, viewModel: SettingsViewModel){
     var expandedDifficulty by remember { mutableStateOf(false) }
     val difficultyOptions = TrivialDifficulty.entries
     val roundsOptions = listOf(5, 10, 15)

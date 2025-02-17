@@ -1,5 +1,6 @@
 package cat.itb.m78.exercices.Trivial
 
+import kotlinx.serialization.Serializable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -11,7 +12,8 @@ import cat.itb.m78.exercices.Trivial.Screens.GameScreen
 import cat.itb.m78.exercices.Trivial.Screens.MenuScreen
 import cat.itb.m78.exercices.Trivial.Screens.SettingsScreen
 import cat.itb.m78.exercices.Trivial.Screens.ResultScreen
-import kotlinx.serialization.Serializable
+import cat.itb.m78.exercices.Trivial.SettingsViewModel
+
 
 object Destination{
     @Serializable
@@ -29,31 +31,36 @@ val brush = Brush.verticalGradient(listOf(Color(0xfff44336), Color(0xFF5E5E5E), 
 @Composable
 fun Trivial(){
     val navController = rememberNavController()
-    val viewModel: GameViewModel = viewModel { GameViewModel() }
+    val settingsViewModel: SettingsViewModel = viewModel { SettingsViewModel() }
+    val gameViewModel: GameViewModel = viewModel { GameViewModel(settingsViewModel) }
+
     NavHost(navController = navController, startDestination = Destination.MenuScreen){
+
         composable<Destination.SettingsScreen> {
             SettingsScreen (
-                navigateToMenuScreen = { navController.navigate(Destination.MenuScreen) }
+                navigateToMenuScreen = { navController.navigate(Destination.MenuScreen) },
+                settingsViewModel = settingsViewModel
             )
         }
         composable<Destination.MenuScreen> {
             MenuScreen(
                 navigateToGameScreen = { navController.navigate(Destination.GameScreen) },
-                navigateToSettingsScreen = { navController.navigate(Destination.SettingsScreen) }
+                navigateToSettingsScreen = { navController.navigate(Destination.SettingsScreen) },
+                gameViewModel = gameViewModel
             )
         }
 
-
         composable<Destination.GameScreen> {
             GameScreen (
-                viewModel = viewModel,
-                navigateToResultScreen = { navController.navigate(Destination.ResultScreen) }
+                navigateToResultScreen = { navController.navigate(Destination.ResultScreen) },
+                viewModel = gameViewModel,
+                settingsData = settingsViewModel
             )
         }
 
         composable<Destination.ResultScreen> {
             ResultScreen (
-                viewModel = viewModel,
+                viewModel = gameViewModel,
                 navigateToMenuScreen = { navController.navigate(Destination.MenuScreen) }
             )
         }
