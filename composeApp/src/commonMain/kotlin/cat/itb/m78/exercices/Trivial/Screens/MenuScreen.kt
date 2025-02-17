@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.itb.m78.exercices.Trivial.brush
 import m78exercices.composeapp.generated.resources.Res
+import m78exercices.composeapp.generated.resources.pokemon_logo
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
@@ -39,11 +40,11 @@ fun MenuScreen(navigateToGameScreen: () -> Unit, navigateToSettingsScreen: () ->
             text = "Trivial",
             fontSize = 60.sp,
             )
-//        Image(
-//            painter = painterResource(Res.drawable.Dragonite),
-//            contentDescription = null,
-//            modifier = Modifier.size(200.dp).clip(CircleShape)
-//        )
+        Image(
+            painter = painterResource(Res.drawable.pokemon_logo),
+            contentDescription = null,
+            modifier = Modifier.size(200.dp).clip(CircleShape)
+        )
         Spacer(modifier = Modifier.padding(10.dp))
         Button(
             onClick = navigateToGameScreen,
