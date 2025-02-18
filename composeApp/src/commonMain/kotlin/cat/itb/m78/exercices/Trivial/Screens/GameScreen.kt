@@ -86,7 +86,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
                     if (!questionAnswered) {
                         timerRunning = false
                         questionAnswered = true
-                        viewModel.checkQuestion(0) { navigateToResultScreen() }}
+                        viewModel.checkQuestion(1) { navigateToResultScreen() }}
                 },
                     modifier = Modifier.height(40.dp).width(250.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336)))
@@ -98,7 +98,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
                     if (!questionAnswered) {
                         timerRunning = false
                         questionAnswered = true
-                        viewModel.checkQuestion(0) { navigateToResultScreen() }}
+                        viewModel.checkQuestion(2) { navigateToResultScreen() }}
                 },
                     modifier = Modifier.height(40.dp).width(250.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336)))
@@ -110,7 +110,7 @@ fun GameScreenView(viewModel: GameViewModel, settingsData: SettingsViewModel, na
                     if (!questionAnswered) {
                         timerRunning = false
                         questionAnswered = true
-                        viewModel.checkQuestion(0) { navigateToResultScreen() }}
+                        viewModel.checkQuestion(3) { navigateToResultScreen() }}
                 },
                     modifier = Modifier.height(40.dp).width(250.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xfff44336)))

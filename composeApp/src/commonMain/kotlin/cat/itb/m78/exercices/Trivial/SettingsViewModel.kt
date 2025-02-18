@@ -9,8 +9,8 @@ enum class TrivialDifficulty{ Easy, Normal, Hard }
 
 data class TrivialSettings(
     val difficulty: TrivialDifficulty = TrivialDifficulty.Easy,
-    val questionsPerGame: Int = 5,
-    val timePerGame: Float = 5f
+    val questionsPerGame: Int = 10,
+    val timePerGame: Float = 10f
 )
 
 data object TrivialSettingsManager{

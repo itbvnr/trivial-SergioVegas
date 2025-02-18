@@ -62,7 +62,7 @@ class GameViewModel(private val settingsViewModel: SettingsViewModel) : ViewMode
             }
             showResult = true
             viewModelScope.launch {
-                delay(5000)
+                delay(2000)
                 showResult = false
                 if (currentRound >= settingsViewModel.selectedRounds) {
                     gameFinished = true

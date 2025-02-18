@@ -51,8 +51,8 @@ var questions = listOf(
     ),
     Question(
         text = "Quantes etapes evolutives te Charmander?",
-        options = listOf("1", "3", "2", "0"),
-        correctAnswerIndex = 1,
+        options = listOf("1", "2", "3", "0"),
+        correctAnswerIndex = 2,
         category = "Easy"
     ),
     Question(
@@ -169,7 +169,7 @@ var questions = listOf(
         category = "Hard"
     ),
     Question(
-        text = "Quin pokemon NO té la habilitat cos flama?",
+        text = "Quin pokemon NO té la habilitat intimidació?",
         options = listOf("Shinx", "Dragonite", "Gyarados", "Arcanine"),
         correctAnswerIndex = 1,
         category = "Hard"
